@@ -43,19 +43,23 @@ class Video:
         return self._tags
 
     def flag(self, flag_reason="Not supplied"):
-        """Returns the video id of a video."""
+        """Flag the video with an optional reason."""
         self._flagged = True
         self._flag_reason = flag_reason
 
     def allow(self):
+        """ Remove the flag from the video."""
         self._flagged = False
         self._flag_reason = ""
+
+    def pretty_flag_reason(self):
+        return "(reason: " + self.flag_reason + ")"
 
     def __str__(self):
         tags = ' '.join(self.tags)
         out = self.title + " (" + self.video_id + ") [" + tags + "]"
 
         if self._flagged:
-            out += " - FLAGGED (reason: " + self.flag_reason + ")"
+            out += " - FLAGGED " + self.pretty_flag_reason()
 
         return out
